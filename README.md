@@ -24,3 +24,6 @@ Cần nắm được các class trong game:
 ---------
 - Các sự kiện va chạm giữa người với quái, bắn trúng quái, người dính đạn của quái.
 - Phương thức di chuyển của người và quái
+
+Demo:
+https://youtu.be/adblKXqgKAQ
