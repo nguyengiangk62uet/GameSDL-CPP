@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Game123" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Game123" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Game123" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="F:/SDL/SDL_image_1_2_4/include" />
+					<Add directory="F:/SDL/SDL-1.2.15/include/SDL" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lmingw32 -lSDLmain -lSDL" />
+					<Add option="-lSDL_image" />
+					<Add option="-lopengl32" />
+					<Add option="-mwindows" />
+					<Add directory="F:/SDL/SDL_image_1_2_4/lib" />
+					<Add directory="F:/SDL/SDL-1.2.15/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="AmoObject.cpp" />
+		<Unit filename="AmoObject.h" />
+		<Unit filename="BaseObject.cpp" />
+		<Unit filename="BaseObject.h" />
+		<Unit filename="Common_Function.cpp" />
+		<Unit filename="Common_Function.h" />
+		<Unit filename="ExplosionObject.cpp" />
+		<Unit filename="ExplosionObject.h" />
+		<Unit filename="MainObject.cpp" />
+		<Unit filename="MainObject.h" />
+		<Unit filename="ThreatsObject.cpp" />
+		<Unit filename="ThreatsObject.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
