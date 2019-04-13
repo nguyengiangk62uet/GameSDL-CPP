@@ -35,7 +35,7 @@ void ThreatsObject::InitAmo(AmoObject* p_amo)
 {
     if (p_amo)
     {
-        bool ret = p_amo->loadImg("egg.png");
+        bool ret = p_amo->loadImg("images/egg.png");
         if (ret)
         {
             p_amo->set_is_move(true);

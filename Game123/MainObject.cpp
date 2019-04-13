@@ -55,6 +55,19 @@ void MainObject::HandleInputAction(SDL_Event events, Mix_Chunk* fire_sound[2])
         case SDLK_RIGHT:
             x_val_ -= WIDTH_MAIN_OBJECT/SPEED_MAIN;
             break;
+        case SDLK_KP0:
+        {
+            AmoObject* p_amo = new AmoObject();
+            p_amo->SetWidthHeight(WIDTH_LAZER, HEIGHT_LAZER);
+            p_amo->loadImg("images/laser.png");
+            p_amo->set_type(AmoObject::LAZER);
+            Mix_PlayChannel(-1, fire_sound[0], 0);
+
+            p_amo->SetRect(this->rect_.x + 20, this->rect_.y + 22);
+            p_amo->set_is_move(true);
+            p_amo->Set_y_val(20);
+            p_amo_list.push_back(p_amo);
+        }
         default:
             break;
         }
@@ -65,14 +78,14 @@ void MainObject::HandleInputAction(SDL_Event events, Mix_Chunk* fire_sound[2])
         if (events.button.button == SDL_BUTTON_LEFT)
         {
             p_amo->SetWidthHeight(WIDTH_LAZER, HEIGHT_LAZER);
-            p_amo->loadImg("laser.png");
+            p_amo->loadImg("images/laser.png");
             p_amo->set_type(AmoObject::LAZER);
             Mix_PlayChannel(-1, fire_sound[0], 0);
         }
         else if (events.button.button == SDL_BUTTON_RIGHT)
         {
             p_amo->SetWidthHeight(WIDTH_SPHERE, HEIGHT_SPHERE);
-            p_amo->loadImg("sphere.png");
+            p_amo->loadImg("images/sphere.png");
             p_amo->set_type(AmoObject::SPHERE);
             Mix_PlayChannel(-1, fire_sound[1], 0);
         }

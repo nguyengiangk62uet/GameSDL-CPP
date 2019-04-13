@@ -13,12 +13,7 @@ SDL_Surface* SDLCommonFunc::load_image(std::string file_path)
     }
 
     // Xóa background color của ảnh
-    if (file_path == "ok.png")
-    {
-        UINT32 color_key = SDL_MapRGB(optimizeImage->format, 0xFF, 0xFF, 0xFF);
-        SDL_SetColorKey(optimizeImage, SDL_SRCCOLORKEY, color_key);
-    }
-    else if (file_path == "normalChick.png" || file_path == "superChick.png" || file_path == "egg.png")
+    if (file_path == "images/egg.png")
     {
         UINT32 color_key = SDL_MapRGB(optimizeImage->format, 0x22, 0x3E, 0x4A);
         SDL_SetColorKey(optimizeImage, SDL_SRCCOLORKEY, color_key);

@@ -16,6 +16,7 @@
 					<Add directory="F:/SDL/SDL_image_1_2_4/include" />
 					<Add directory="F:/SDL/SDL-1.2.15/include/SDL" />
 					<Add directory="F:/SDL/SDL_mixer_1_2_12/include" />
+					<Add directory="F:/SDL/SDL2_ttf_2_0_11/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-lmingw32 -lSDLmain -lSDL" />
@@ -23,9 +24,11 @@
 					<Add option="-lopengl32" />
 					<Add option="-mwindows" />
 					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_ttf" />
 					<Add directory="F:/SDL/SDL_image_1_2_4/lib" />
 					<Add directory="F:/SDL/SDL-1.2.15/lib" />
 					<Add directory="F:/SDL/SDL_mixer_1_2_12/lib/x86" />
+					<Add directory="F:/SDL/SDL2_ttf_2_0_11/lib/x86" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -38,6 +41,7 @@
 					<Add directory="F:/SDL/SDL_image_1_2_4/include" />
 					<Add directory="F:/SDL/SDL-1.2.15/include/SDL" />
 					<Add directory="F:/SDL/SDL_mixer_1_2_12/include" />
+					<Add directory="F:/SDL/SDL2_ttf_2_0_11/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -46,9 +50,11 @@
 					<Add option="-lopengl32" />
 					<Add option="-mwindows" />
 					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_ttf" />
 					<Add directory="F:/SDL/SDL_image_1_2_4/lib" />
 					<Add directory="F:/SDL/SDL-1.2.15/lib" />
 					<Add directory="F:/SDL/SDL_mixer_1_2_12/lib/x86" />
+					<Add directory="F:/SDL/SDL2_ttf_2_0_11/lib/x86" />
 				</Linker>
 			</Target>
 		</Build>
@@ -63,8 +69,12 @@
 		<Unit filename="Common_Function.h" />
 		<Unit filename="ExplosionObject.cpp" />
 		<Unit filename="ExplosionObject.h" />
+		<Unit filename="HealthObject.cpp" />
+		<Unit filename="HealthObject.h" />
 		<Unit filename="MainObject.cpp" />
 		<Unit filename="MainObject.h" />
+		<Unit filename="TextObject.cpp" />
+		<Unit filename="TextObject.h" />
 		<Unit filename="ThreatsObject.cpp" />
 		<Unit filename="ThreatsObject.h" />
 		<Unit filename="main.cpp" />

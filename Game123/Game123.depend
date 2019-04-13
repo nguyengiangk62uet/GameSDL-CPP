@@ -485,7 +485,7 @@
 	"BaseObject.h"
 	"Common_Function.h"
 
-1555101514 source:c:\users\admin\documents\github\gamesdl-cpp\game123\common_function.cpp
+1555171050 source:c:\users\admin\documents\github\gamesdl-cpp\game123\common_function.cpp
 	"Common_Function.h"
 
 1555103345 source:c:\users\admin\documents\github\gamesdl-cpp\game123\explosionobject.cpp
@@ -495,14 +495,18 @@
 	"BaseObject.h"
 	"Common_Function.h"
 
-1555146338 source:c:\users\admin\documents\github\gamesdl-cpp\game123\main.cpp
+1555173094 source:c:\users\admin\documents\github\gamesdl-cpp\game123\main.cpp
 	"Common_Function.h"
 	"MainObject.h"
 	"ThreatsObject.h"
 	"ExplosionObject.h"
+	"HealthObject.h"
+	"TextObject.h"
 	<SDL_getenv.h>
+	<iostream>
+	"SDL_syswm.h"
 
-1555144340 c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.h
+1555171767 c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.h
 	"Common_Function.h"
 	"BaseObject.h"
 	"AmoObject.h"
@@ -514,10 +518,10 @@
 	"AmoObject.h"
 	<vector>
 
-1555144555 source:c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.cpp
+1555173390 source:c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.cpp
 	"MainObject.h"
 
-1555094010 source:c:\users\admin\documents\github\gamesdl-cpp\game123\threatsobject.cpp
+1555171017 source:c:\users\admin\documents\github\gamesdl-cpp\game123\threatsobject.cpp
 	"ThreatsObject.h"
 
 1325767740 f:\sdl\sdl_mixer_1_2_12\include\sdl_mixer.h
@@ -531,4 +535,37 @@
 
 1325738639 f:\sdl\sdl-1.2.15\include\sdl\sdl_types.h
 	"SDL_stdinc.h"
+
+1555171099 source:c:\users\admin\documents\github\gamesdl-cpp\game123\healthobject.cpp
+	"HealthObject.h"
+
+1555163099 c:\users\admin\documents\github\gamesdl-cpp\game123\healthobject.h
+	"BaseObject.h"
+	<vector>
+
+1555170283 source:c:\users\admin\documents\github\gamesdl-cpp\game123\textobject.cpp
+	"TextObject.h"
+
+1555168821 c:\users\admin\documents\github\gamesdl-cpp\game123\textobject.h
+	"BaseObject.h"
+	<string>
+	<SDL_ttf.h>
+
+1325771594 f:\sdl\sdl2_ttf_2_0_11\include\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738639 f:\sdl\sdl-1.2.15\include\sdl\sdl_syswm.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_version.h"
+	"begin_code.h"
+	<X11/Xlib.h>
+	<X11/Xatom.h>
+	<microwin/nano-X.h>
+	<windows.h>
+	<sys/neutrino.h>
+	<Ph.h>
+	"close_code.h"
 

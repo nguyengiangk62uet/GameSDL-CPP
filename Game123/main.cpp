@@ -2,9 +2,14 @@
 #include "MainObject.h"
 #include "ThreatsObject.h"
 #include "ExplosionObject.h"
+#include "HealthObject.h"
+#include "TextObject.h"
 #include <SDL_getenv.h>
+#include <iostream>
+#include "SDL_syswm.h"
 
 SDL_Surface *g_object;
+TTF_Font* g_font_text;
 
 bool Init()
 {
@@ -24,12 +29,22 @@ bool Init()
         return false;
     }
     // Read file audio wav
-    g_sound_fire[0] = Mix_LoadWAV("lazersound.wav");
-    g_sound_fire[1] = Mix_LoadWAV("rightfire.wav");
-    g_sound_explo[0] = Mix_LoadWAV("explosion.wav");
-    g_sound_explo[1] = Mix_LoadWAV("chickdie.wav");
+    g_sound_fire[0] = Mix_LoadWAV("sound/lazersound.wav");
+    g_sound_fire[1] = Mix_LoadWAV("sound/rightfire.wav");
+    g_sound_explo[0] = Mix_LoadWAV("sound/explosion.wav");
+    g_sound_explo[1] = Mix_LoadWAV("sound/chickdie.wav");
     if (g_sound_fire[0] == NULL || g_sound_fire[1] == NULL || g_sound_explo[0] == NULL || g_sound_explo[1] == NULL)
         return false;
+
+    if (TTF_Init() == -1)
+    {
+        return false;
+    }
+    g_font_text = TTF_OpenFont("starcraft.ttf", 20);
+    if (!g_font_text)
+    {
+        return false;
+    }
     return true;
 }
 
@@ -42,19 +57,31 @@ int main(int argc, char* argv[])
     bool is_quit = false;
     if (Init() == false)
         return 0;
-    SDL_putenv("SDL_VIDEO_CENTERED=2");
-    g_bkground = SDLCommonFunc::load_image("bground.png");
+    SDL_WM_SetCaption("NguyenGiang-UET SDL Game", "images/eggchick.png");
+    SDL_WM_SetIcon(SDL_LoadBMP("images/eggchick.bmp"), NULL);
+    g_bkground = SDLCommonFunc::load_image("images/bground.png");
     if (g_bkground == NULL)
     {
         return 0;
     }
     SDLCommonFunc::ApplySurface(g_bkground, g_screen, 0, 0);
+    SDL_putenv("SDL_VIDEO_CENTERED=1");
 
     // ---Khởi tạo các đối tượng trong game---
+
+    // Make health player
+    HealthObject health_Player;
+    health_Player.Init();
+
+    // Make game mark
+    TextObject mark_game;
+    mark_game.SetColor(TextObject::WHITE_TEXT);
+
+
     // Tạo đối tượng tên lửa
     MainObject human_object;
     human_object.SetRect(SCREEN_WIDTH/2, 500);
-    bool ret = human_object.loadImg("ok.png");
+    bool ret = human_object.loadImg("images/ok.png");
     if (!ret)
     {
         return 0;
@@ -62,7 +89,7 @@ int main(int argc, char* argv[])
 
     // Tạo vụ nổ
     ExplosionObject exp_main;
-    ret = exp_main.loadImg("exp_main.png");
+    ret = exp_main.loadImg("images/exp_main.png");
     exp_main.SetClip();
     if (ret == false)
         return 0;
@@ -74,7 +101,7 @@ int main(int argc, char* argv[])
         ThreatsObject* p_threat = (p_threats + i);
         if (p_threat)
         {
-            ret = p_threat->loadImg("normalChick.png");
+            ret = p_threat->loadImg("images/normalChick.png");
             if (ret == false)
             {
                 return 0;
@@ -91,6 +118,9 @@ int main(int argc, char* argv[])
             p_threat->InitAmo(p_amo);  // Tạo đạn cho quái
         }
     }
+
+    unsigned int die_number = 0;
+    unsigned int mark_value = 0;
 
     // ---Load liên tục screen (Tất cả các đối tượng phải chạy trong vòng lặp này)---
     while (!is_quit)
@@ -123,6 +153,9 @@ int main(int argc, char* argv[])
             SDLCommonFunc::ApplySurface(g_bkground, g_screen, 0, bground_y);
         }
 
+        // Show health player
+        health_Player.Render(g_screen);
+
         // Apply nhân vật vào hình
         human_object.HandleMove(); //Load hình nhân vật khi di chuyển
         human_object.show(g_screen);
@@ -144,8 +177,9 @@ int main(int argc, char* argv[])
                 bool is_collis = SDLCommonFunc::CheckCollision(human_object.GetRect(), p_threat->GetRect());
                 if (is_collis == true)
                 {
+                    die_number++;
                     Mix_PlayChannel(-1, g_sound_explo[0], 0);
-                    for (int ex = 0; ex < 4; ex++)
+                    for (int ex = 0; ex < 3; ex++)
                     {
                         int x_pos = (human_object.GetRect().x + human_object.GetRect().w*0.5) - EXP_WIDTH*0.5;
                         int y_pos = (human_object.GetRect().y + human_object.GetRect().h*0.5) - EXP_HEIGHT*0.5;
@@ -159,18 +193,34 @@ int main(int argc, char* argv[])
                             return 0;
                     }
                     SDL_Delay(2000);
-                    if (MessageBox(NULL, "Game Over !!! You are lose the game.", "End Game", MB_OK) == IDOK)
+                    if (die_number <= 2)
                     {
-                        delete[] p_threats; // Giải phóng bộ nhớ
-                        SDLCommonFunc::CleanUp();
-                        SDL_Quit();
-                        return 1;
+                        human_object.SetRect(SCREEN_WIDTH/2, 500);
+                        health_Player.Decrease();
+                        health_Player.Render(g_screen);
+                        if ( SDL_Flip(g_screen) == -1)
+                        {
+                            delete[] p_threats; // Giải phóng bộ nhớ
+                            SDLCommonFunc::CleanUp();
+                            SDL_Quit();
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                        if (MessageBox(NULL, "Game Over !!! You are lose the game.", "End Game", MB_OK) == IDOK)
+                        {
+                            delete[] p_threats; // Giải phóng bộ nhớ
+                            //SDLCommonFunc::CleanUp();
+                            //SDL_Quit();
+                            return 1;
+                        }
                     }
                 }
 
                 // Va chạm giữa người và đạn của quái
                 std::vector<AmoObject*> amo_list_threat = p_threat->GetAmoList();
-                for (int tm = 0; tm < amo_list_threat.size(); tm++)
+                for (unsigned int tm = 0; tm < amo_list_threat.size(); tm++)
                 {
                     AmoObject* p_amo = amo_list_threat.at(tm);
                     if (p_amo)
@@ -178,8 +228,9 @@ int main(int argc, char* argv[])
                         bool ret_collis = SDLCommonFunc::CheckCollision(p_amo->GetRect(), human_object.GetRect());
                         if (ret_collis == true)
                         {
+                            die_number++;
                             Mix_PlayChannel(-1, g_sound_explo[0], 0);
-                            for (int ex = 0; ex < 4; ex++)
+                            for (int ex = 0; ex < 3; ex++)
                             {
                                 int x_pos = (human_object.GetRect().x + human_object.GetRect().w*0.5) - EXP_WIDTH*0.5;
                                 int y_pos = (human_object.GetRect().y + human_object.GetRect().h*0.5) - EXP_HEIGHT*0.5;
@@ -193,12 +244,28 @@ int main(int argc, char* argv[])
                                     return 0;
                             }
                             SDL_Delay(2000);
-                            if (MessageBox(NULL, "Game Over !!! You are lose the game.", "End Game", MB_OK) == IDOK)
+                            if (die_number <= 2)
                             {
-                                delete[] p_threats; // Giải phóng bộ nhớ
-                                SDLCommonFunc::CleanUp();
-                                SDL_Quit();
-                                return 1;
+                                human_object.SetRect(SCREEN_WIDTH/2, 500);
+                                health_Player.Decrease();
+                                health_Player.Render(g_screen);
+                                if ( SDL_Flip(g_screen) == -1)
+                                {
+                                    delete[] p_threats; // Giải phóng bộ nhớ
+                                    SDLCommonFunc::CleanUp();
+                                    SDL_Quit();
+                                    return 0;
+                                }
+                            }
+                            else
+                            {
+                                if (MessageBox(NULL, "Game Over !!! You are lose the game.", "End Game", MB_OK) == IDOK)
+                                {
+                                    delete[] p_threats; // Giải phóng bộ nhớ
+                                    SDLCommonFunc::CleanUp();
+                                    SDL_Quit();
+                                    return 1;
+                                }
                             }
                         }
                     }
@@ -206,7 +273,7 @@ int main(int argc, char* argv[])
 
                 // Bắn trúng quái
                 std::vector<AmoObject*> amo_list = human_object.GetAmoList();
-                for (int am = 0; am < amo_list.size(); am++)
+                for (unsigned int am = 0; am < amo_list.size(); am++)
                 {
                     AmoObject* p_amo = amo_list.at(am);
                     if (p_amo != NULL)
@@ -214,6 +281,7 @@ int main(int argc, char* argv[])
                         bool ret_collis = SDLCommonFunc::CheckCollision(p_amo->GetRect(), p_threat->GetRect());
                         if (ret_collis)
                         {
+                            mark_value += 100;
                             Mix_PlayChannel(2, g_sound_explo[1], 0);
                             for (int ex = 0; ex < 2; ex++)
                             {
@@ -235,9 +303,21 @@ int main(int argc, char* argv[])
             }
         }
 
+        // Show mark in screen
+        std::string val_str_mark = std::to_string(mark_value);
+        std::string strMark("Score: ");
+        strMark += val_str_mark;
+        mark_game.SetText(strMark);
+        mark_game.CreateGameText(g_font_text, g_screen);
+
         // Update screen
         if ( SDL_Flip(g_screen) == -1)
+        {
+            delete[] p_threats; // Giải phóng bộ nhớ
+            SDLCommonFunc::CleanUp();
+            SDL_Quit();
             return 0;
+        }
     }
 
     delete[] p_threats; // Giải phóng bộ nhớ
