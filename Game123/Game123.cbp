@@ -13,7 +13,20 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="F:/SDL/SDL_image_1_2_4/include" />
+					<Add directory="F:/SDL/SDL-1.2.15/include/SDL" />
+					<Add directory="F:/SDL/SDL_mixer_1_2_12/include" />
 				</Compiler>
+				<Linker>
+					<Add option="-lmingw32 -lSDLmain -lSDL" />
+					<Add option="-lSDL_image" />
+					<Add option="-lopengl32" />
+					<Add option="-mwindows" />
+					<Add option="-lSDL_mixer" />
+					<Add directory="F:/SDL/SDL_image_1_2_4/lib" />
+					<Add directory="F:/SDL/SDL-1.2.15/lib" />
+					<Add directory="F:/SDL/SDL_mixer_1_2_12/lib/x86" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/Game123" prefix_auto="1" extension_auto="1" />
@@ -24,6 +37,7 @@
 					<Add option="-O2" />
 					<Add directory="F:/SDL/SDL_image_1_2_4/include" />
 					<Add directory="F:/SDL/SDL-1.2.15/include/SDL" />
+					<Add directory="F:/SDL/SDL_mixer_1_2_12/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -31,8 +45,10 @@
 					<Add option="-lSDL_image" />
 					<Add option="-lopengl32" />
 					<Add option="-mwindows" />
+					<Add option="-lSDL_mixer" />
 					<Add directory="F:/SDL/SDL_image_1_2_4/lib" />
 					<Add directory="F:/SDL/SDL-1.2.15/lib" />
+					<Add directory="F:/SDL/SDL_mixer_1_2_12/lib/x86" />
 				</Linker>
 			</Target>
 		</Build>

@@ -465,3 +465,70 @@
 	"BaseObject.h"
 	"Common_Function.h"
 
+1555082141 source:c:\users\admin\documents\github\gamesdl-cpp\game123\amoobject.cpp
+	"AmoObject.h"
+
+1555082404 c:\users\admin\documents\github\gamesdl-cpp\game123\amoobject.h
+	"BaseObject.h"
+
+1555082304 c:\users\admin\documents\github\gamesdl-cpp\game123\baseobject.h
+	"Common_Function.h"
+
+1555146041 c:\users\admin\documents\github\gamesdl-cpp\game123\common_function.h
+	<SDL.h>
+	<string>
+	<windows.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+
+1554908001 source:c:\users\admin\documents\github\gamesdl-cpp\game123\baseobject.cpp
+	"BaseObject.h"
+	"Common_Function.h"
+
+1555101514 source:c:\users\admin\documents\github\gamesdl-cpp\game123\common_function.cpp
+	"Common_Function.h"
+
+1555103345 source:c:\users\admin\documents\github\gamesdl-cpp\game123\explosionobject.cpp
+	"ExplosionObject.h"
+
+1555103345 c:\users\admin\documents\github\gamesdl-cpp\game123\explosionobject.h
+	"BaseObject.h"
+	"Common_Function.h"
+
+1555146338 source:c:\users\admin\documents\github\gamesdl-cpp\game123\main.cpp
+	"Common_Function.h"
+	"MainObject.h"
+	"ThreatsObject.h"
+	"ExplosionObject.h"
+	<SDL_getenv.h>
+
+1555144340 c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.h
+	"Common_Function.h"
+	"BaseObject.h"
+	"AmoObject.h"
+	<vector>
+
+1555092404 c:\users\admin\documents\github\gamesdl-cpp\game123\threatsobject.h
+	"Common_Function.h"
+	"BaseObject.h"
+	"AmoObject.h"
+	<vector>
+
+1555144555 source:c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.cpp
+	"MainObject.h"
+
+1555094010 source:c:\users\admin\documents\github\gamesdl-cpp\game123\threatsobject.cpp
+	"ThreatsObject.h"
+
+1325767740 f:\sdl\sdl_mixer_1_2_12\include\sdl_mixer.h
+	"SDL_types.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1325738639 f:\sdl\sdl-1.2.15\include\sdl\sdl_types.h
+	"SDL_stdinc.h"
+

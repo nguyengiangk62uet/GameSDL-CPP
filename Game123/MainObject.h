@@ -17,7 +17,7 @@ public:
     MainObject();
     ~MainObject();
 
-    void HandleInputAction(SDL_Event events);
+    void HandleInputAction(SDL_Event events, Mix_Chunk* fire_sound[0]);
     void HandleMove();
 
     // Đạn của nhân vật lưu trong vector

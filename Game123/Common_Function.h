@@ -7,6 +7,7 @@
 #include <string>
 #include <windows.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 
 const int BACKGROUND_HEIGHT = 3350;
 const int SCREEN_WIDTH = 1200;
@@ -18,6 +19,9 @@ const int SPEED_MAIN = 8;
 static SDL_Surface *g_screen = NULL;
 static SDL_Surface *g_bkground = NULL;
 static SDL_Event g_even;
+
+static Mix_Chunk* g_sound_fire[3];
+static Mix_Chunk* g_sound_explo[2];
 
 namespace SDLCommonFunc //Tránh trùng lặp
 {

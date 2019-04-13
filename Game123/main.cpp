@@ -18,6 +18,18 @@ bool Init()
     {
         return false;
     }
+
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+    {
+        return false;
+    }
+    // Read file audio wav
+    g_sound_fire[0] = Mix_LoadWAV("lazersound.wav");
+    g_sound_fire[1] = Mix_LoadWAV("rightfire.wav");
+    g_sound_explo[0] = Mix_LoadWAV("explosion.wav");
+    g_sound_explo[1] = Mix_LoadWAV("chickdie.wav");
+    if (g_sound_fire[0] == NULL || g_sound_fire[1] == NULL || g_sound_explo[0] == NULL || g_sound_explo[1] == NULL)
+        return false;
     return true;
 }
 
@@ -90,7 +102,7 @@ int main(int argc, char* argv[])
                 is_quit = true;
                 break;
             }
-            human_object.HandleInputAction(g_even);
+            human_object.HandleInputAction(g_even, g_sound_fire);
         }
 
         // Apply Background
@@ -132,6 +144,7 @@ int main(int argc, char* argv[])
                 bool is_collis = SDLCommonFunc::CheckCollision(human_object.GetRect(), p_threat->GetRect());
                 if (is_collis == true)
                 {
+                    Mix_PlayChannel(-1, g_sound_explo[0], 0);
                     for (int ex = 0; ex < 4; ex++)
                     {
                         int x_pos = (human_object.GetRect().x + human_object.GetRect().w*0.5) - EXP_WIDTH*0.5;
@@ -165,6 +178,7 @@ int main(int argc, char* argv[])
                         bool ret_collis = SDLCommonFunc::CheckCollision(p_amo->GetRect(), human_object.GetRect());
                         if (ret_collis == true)
                         {
+                            Mix_PlayChannel(-1, g_sound_explo[0], 0);
                             for (int ex = 0; ex < 4; ex++)
                             {
                                 int x_pos = (human_object.GetRect().x + human_object.GetRect().w*0.5) - EXP_WIDTH*0.5;
@@ -200,6 +214,7 @@ int main(int argc, char* argv[])
                         bool ret_collis = SDLCommonFunc::CheckCollision(p_amo->GetRect(), p_threat->GetRect());
                         if (ret_collis)
                         {
+                            Mix_PlayChannel(2, g_sound_explo[1], 0);
                             for (int ex = 0; ex < 2; ex++)
                             {
                                 int x_pos = (p_threat->GetRect().x + p_threat->GetRect().w*0.5) - EXP_WIDTH*0.5;

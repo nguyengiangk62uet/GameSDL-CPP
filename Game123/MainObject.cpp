@@ -17,7 +17,7 @@ MainObject::~MainObject()
 }
 
 // Xử lý sự kiện nhân vật chính
-void MainObject::HandleInputAction(SDL_Event events)
+void MainObject::HandleInputAction(SDL_Event events, Mix_Chunk* fire_sound[2])
 {
     if (events.type == SDL_KEYDOWN) // Sự kiện khi ấn phím
     {
@@ -67,12 +67,14 @@ void MainObject::HandleInputAction(SDL_Event events)
             p_amo->SetWidthHeight(WIDTH_LAZER, HEIGHT_LAZER);
             p_amo->loadImg("laser.png");
             p_amo->set_type(AmoObject::LAZER);
+            Mix_PlayChannel(-1, fire_sound[0], 0);
         }
         else if (events.button.button == SDL_BUTTON_RIGHT)
         {
             p_amo->SetWidthHeight(WIDTH_SPHERE, HEIGHT_SPHERE);
             p_amo->loadImg("sphere.png");
             p_amo->set_type(AmoObject::SPHERE);
+            Mix_PlayChannel(-1, fire_sound[1], 0);
         }
         p_amo->SetRect(this->rect_.x + 20, this->rect_.y + 22);
         p_amo->set_is_move(true);
