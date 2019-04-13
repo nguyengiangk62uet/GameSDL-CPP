@@ -1,6 +1,7 @@
 # GameSDL-CPP
 <h2>Tạo Game bắn gà đơn giản với SDL</h3>
-- Game bắn gà dựa trên cảm hứng từ thể loại game bắn gà huyền thoại.
+
+- Game bắn gà dựa trên cảm hứng từ thể loại game bắn gà huyền thoại
 - Mã nguồn được viết bằng ngôn ngữ C++ đồ họa SDL 1.2.15.
 
 Nhiệm vụ: Bắn các đối tượng quái để lấy điểm, hạ gục boss để chiến thắng.
