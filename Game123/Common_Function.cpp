@@ -34,6 +34,7 @@ void SDLCommonFunc::ApplySurface(SDL_Surface* src, SDL_Surface* des, int x, int 
     SDL_BlitSurface(src, NULL, des, &offset);
 }
 
+// Apply hoạt ảnh nổ
 void SDLCommonFunc::ApplySurfaceClip(SDL_Surface* src, SDL_Surface* des, SDL_Rect* clip, int x, int y)
 {
     SDL_Rect offset;

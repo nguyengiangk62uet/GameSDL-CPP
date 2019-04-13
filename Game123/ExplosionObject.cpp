@@ -10,6 +10,7 @@ ExplosionObject::~ExplosionObject()
 
 }
 
+// Set vị trí clip nổ
 void ExplosionObject::SetClip()
 {
     clip_right[0].x = 0;

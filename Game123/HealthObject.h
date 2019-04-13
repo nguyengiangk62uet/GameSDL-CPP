@@ -1,3 +1,5 @@
+// Mạng của nhân vật
+
 #ifndef HEALTH_OBJECT_H_
 #define HEALTH_OBJECT_H_
 

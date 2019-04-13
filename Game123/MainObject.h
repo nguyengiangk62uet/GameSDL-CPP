@@ -1,4 +1,4 @@
-//Dùng để tạo các đối tượng trong main. Kế thừa từ BaseObject
+// Đối tượng nhân vật chính. Kế thừa từ BaseObject
 
 #ifndef MAIN_OBJECT_H_
 #define MAIN_OBJECT_H_TH

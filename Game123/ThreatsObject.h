@@ -19,6 +19,7 @@ public:
 
     void HandleInputAction(SDL_Event events);
     void HandleMove(const int& x_border, const int& y_border);
+    void HandleMoveBoss(const int& x_border, const int& y_border);
     void set_x_val(const int& val)
     {
         x_val_ = val;
@@ -36,7 +37,7 @@ public:
         return y_val_;
     }
 
-    void InitAmo(AmoObject* p_amo);
+    void InitAmo(AmoObject* p_amo, const int& speed);
     void SetAmoList(std::vector<AmoObject*> amo_list)
     {
         p_amo_list = amo_list;

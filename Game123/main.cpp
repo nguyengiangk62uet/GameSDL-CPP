@@ -9,7 +9,7 @@
 #include "SDL_syswm.h"
 
 SDL_Surface *g_object;
-TTF_Font* g_font_text;
+TTF_Font* g_font_text; //Font chữ
 
 bool Init()
 {
@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 
     // Tạo đối tượng tên lửa
     MainObject human_object;
-    human_object.SetRect(SCREEN_WIDTH/2, 500);
+    human_object.SetRect(START_XPOS_MAIN, START_YPOS_MAIN);
     bool ret = human_object.loadImg("images/ok.png");
     if (!ret)
     {
@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
 
     //Tạo đối tượng Threats. Dùng vector để sinh nhiều threats
     ThreatsObject* p_threats = new ThreatsObject[NUM_THREAT];
-    for (int i = 0; i < NUM_THREAT; i++)
+    for (int i = 0; i < NUM_THREAT; i++) // Số lượng quái là cụ thể. Khi chạy sẽ lặp và sinh liên tiếp
     {
         ThreatsObject* p_threat = (p_threats + i);
         if (p_threat)
@@ -106,21 +106,38 @@ int main(int argc, char* argv[])
             {
                 return 0;
             }
-            int rand_x = rand()%600; // Sinh Threat ngẫu nhiên
+            int rand_x = rand()%1100; // Sinh Threat ngẫu nhiên
             if (rand_x > SCREEN_WIDTH)
             {
                 rand_x = SCREEN_WIDTH * 0.3;
             }
-            p_threat->SetRect(rand_x, 0 - i*200);
+            p_threat->SetRect(rand_x, 0 - i*400);
             p_threat->set_y_val(1);
 
             AmoObject* p_amo = new AmoObject();
-            p_threat->InitAmo(p_amo);  // Tạo đạn cho quái
+            p_threat->InitAmo(p_amo, 3);  // Tạo đạn cho quái
         }
     }
 
-    unsigned int die_number = 0;
-    unsigned int mark_value = 0;
+    // Tạo boss chủ
+    ThreatsObject* p_boss = new ThreatsObject();
+
+    ret = p_boss->loadImg("images/uco.png");
+    if (ret == false)
+    {
+        return 0;
+    }
+    p_boss->SetRect(SCREEN_WIDTH / 3, 10);
+    p_boss->set_x_val(2);
+
+    AmoObject* p_amo = new AmoObject();
+    p_boss->InitAmo(p_amo, 6);  // Tạo đạn cho quái
+
+
+
+    unsigned int die_number = 0; // Lượt chết của nhân vật chính
+    unsigned int mark_value = 0; // Điểm khi bắn chết quái
+    unsigned int num_fire_boss = 0;
 
     // ---Load liên tục screen (Tất cả các đối tượng phải chạy trong vòng lặp này)---
     while (!is_quit)
@@ -136,7 +153,7 @@ int main(int argc, char* argv[])
         }
 
         // Apply Background
-        if (is_run_screen == true)
+        if (is_run_screen == true) // Background là tấm ảnh dài bằng 5 lần screen
         {
             bground_y -= 1;
             if (bground_y <= -(BACKGROUND_HEIGHT - SCREEN_HEIGHT))
@@ -151,6 +168,63 @@ int main(int argc, char* argv[])
         else
         {
             SDLCommonFunc::ApplySurface(g_bkground, g_screen, 0, bground_y);
+
+            p_boss->HandleMoveBoss(SCREEN_WIDTH, SCREEN_HEIGHT);
+            p_boss->show(g_screen);
+            p_boss->MakeAmo(g_screen, SCREEN_WIDTH, SCREEN_HEIGHT);
+            std::vector<AmoObject*> amo_list = human_object.GetAmoList();
+            for (unsigned int am = 0; am < amo_list.size(); am++)
+            {
+                AmoObject* p_amo = amo_list.at(am);
+                if (p_amo != NULL)
+                {
+                    bool ret_collis = SDLCommonFunc::CheckCollision(p_amo->GetRect(), p_boss->GetRect());
+                    if (ret_collis)
+                    {
+                        num_fire_boss++;
+                        Mix_PlayChannel(2, g_sound_explo[1], 0);
+                        for (int ex = 0; ex < 2; ex++)
+                        {
+                            int x_pos = (p_boss->GetRect().x + p_boss->GetRect().w*0.5) - EXP_WIDTH*0.5;
+                            int y_pos = (p_boss->GetRect().y + p_boss->GetRect().h*0.5) - EXP_HEIGHT*0.5;
+
+                            exp_main.SetFrame(ex);
+                            exp_main.SetRect(x_pos, y_pos);
+                            exp_main.ShowExplosion(g_screen);
+                            // Update screen
+                            if ( SDL_Flip(g_screen) == -1)
+                                return 0;
+                        }
+                        human_object.RemoveAmo(am);
+                        if (num_fire_boss > 15)
+                        {
+                            Mix_PlayChannel(-1, g_sound_explo[0], 0);
+                            for (int ex = 0; ex < 4; ex++)
+                            {
+                                int x_pos = (p_boss->GetRect().x + p_boss->GetRect().w*0.5) - EXP_WIDTH*0.5;
+                                int y_pos = (p_boss->GetRect().y + p_boss->GetRect().h*0.5) - EXP_HEIGHT*0.5;
+
+                                exp_main.SetFrame(ex);
+                                exp_main.SetRect(x_pos, y_pos);
+                                exp_main.ShowExplosion(g_screen);
+                                SDL_Delay(400);
+                                // Update screen
+                                if ( SDL_Flip(g_screen) == -1)
+                                    return 0;
+                            }
+                            Sleep(2000);
+                            if (MessageBox(NULL, "Chuc mung !!! Ban da chien thang", "You win", MB_OK) == IDOK)
+                            {
+                                delete[] p_threats; // Giải phóng bộ nhớ
+                                SDLCommonFunc::CleanUp();
+                                SDL_Quit();
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         // Show health player
@@ -164,7 +238,7 @@ int main(int argc, char* argv[])
         human_object.MakeAmo(g_screen);
 
         // Run threats
-        for (int i = 0; i < NUM_THREAT; i++)
+        for (int i = 0; i < NUM_THREAT; i++) //
         {
             ThreatsObject* p_threat = (p_threats + i);
             if (p_threat)
@@ -193,9 +267,9 @@ int main(int argc, char* argv[])
                             return 0;
                     }
                     SDL_Delay(2000);
-                    if (die_number <= 2)
+                    if (die_number <= NUM_LIVES - 1) // Chơi tiếp nếu còn mạng
                     {
-                        human_object.SetRect(SCREEN_WIDTH/2, 500);
+                        human_object.SetRect(START_XPOS_MAIN, START_YPOS_MAIN);
                         health_Player.Decrease();
                         health_Player.Render(g_screen);
                         if ( SDL_Flip(g_screen) == -1)
@@ -211,8 +285,8 @@ int main(int argc, char* argv[])
                         if (MessageBox(NULL, "Game Over !!! You are lose the game.", "End Game", MB_OK) == IDOK)
                         {
                             delete[] p_threats; // Giải phóng bộ nhớ
-                            //SDLCommonFunc::CleanUp();
-                            //SDL_Quit();
+                            SDLCommonFunc::CleanUp();
+                            SDL_Quit();
                             return 1;
                         }
                     }
@@ -244,9 +318,9 @@ int main(int argc, char* argv[])
                                     return 0;
                             }
                             SDL_Delay(2000);
-                            if (die_number <= 2)
+                            if (die_number <= NUM_LIVES - 1)
                             {
-                                human_object.SetRect(SCREEN_WIDTH/2, 500);
+                                human_object.SetRect(START_XPOS_MAIN, START_YPOS_MAIN);
                                 health_Player.Decrease();
                                 health_Player.Render(g_screen);
                                 if ( SDL_Flip(g_screen) == -1)
@@ -295,7 +369,7 @@ int main(int argc, char* argv[])
                                 if ( SDL_Flip(g_screen) == -1)
                                     return 0;
                             }
-                            p_threat->Reset(0 - i*200);
+                            p_threat->Reset(0 - i*400);
                             human_object.RemoveAmo(am);
                         }
                     }
@@ -323,5 +397,5 @@ int main(int argc, char* argv[])
     delete[] p_threats; // Giải phóng bộ nhớ
     SDLCommonFunc::CleanUp();
     SDL_Quit();
-    return 1;
+    return 0;
 }

@@ -1,3 +1,5 @@
+// Đối tượng in text lên screen
+
 #ifndef TEXT_OBJECT_H_
 #define TEXT_OBJECT_H_
 

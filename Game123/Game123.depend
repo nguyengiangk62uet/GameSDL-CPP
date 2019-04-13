@@ -465,7 +465,7 @@
 	"BaseObject.h"
 	"Common_Function.h"
 
-1555082141 source:c:\users\admin\documents\github\gamesdl-cpp\game123\amoobject.cpp
+1555180008 source:c:\users\admin\documents\github\gamesdl-cpp\game123\amoobject.cpp
 	"AmoObject.h"
 
 1555082404 c:\users\admin\documents\github\gamesdl-cpp\game123\amoobject.h
@@ -474,7 +474,7 @@
 1555082304 c:\users\admin\documents\github\gamesdl-cpp\game123\baseobject.h
 	"Common_Function.h"
 
-1555146041 c:\users\admin\documents\github\gamesdl-cpp\game123\common_function.h
+1555181019 c:\users\admin\documents\github\gamesdl-cpp\game123\common_function.h
 	<SDL.h>
 	<string>
 	<windows.h>
@@ -485,17 +485,17 @@
 	"BaseObject.h"
 	"Common_Function.h"
 
-1555171050 source:c:\users\admin\documents\github\gamesdl-cpp\game123\common_function.cpp
+1555180008 source:c:\users\admin\documents\github\gamesdl-cpp\game123\common_function.cpp
 	"Common_Function.h"
 
-1555103345 source:c:\users\admin\documents\github\gamesdl-cpp\game123\explosionobject.cpp
+1555180008 source:c:\users\admin\documents\github\gamesdl-cpp\game123\explosionobject.cpp
 	"ExplosionObject.h"
 
-1555103345 c:\users\admin\documents\github\gamesdl-cpp\game123\explosionobject.h
+1555180214 c:\users\admin\documents\github\gamesdl-cpp\game123\explosionobject.h
 	"BaseObject.h"
 	"Common_Function.h"
 
-1555173094 source:c:\users\admin\documents\github\gamesdl-cpp\game123\main.cpp
+1555187167 source:c:\users\admin\documents\github\gamesdl-cpp\game123\main.cpp
 	"Common_Function.h"
 	"MainObject.h"
 	"ThreatsObject.h"
@@ -506,22 +506,22 @@
 	<iostream>
 	"SDL_syswm.h"
 
-1555171767 c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.h
+1555180304 c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.h
 	"Common_Function.h"
 	"BaseObject.h"
 	"AmoObject.h"
 	<vector>
 
-1555092404 c:\users\admin\documents\github\gamesdl-cpp\game123\threatsobject.h
+1555185313 c:\users\admin\documents\github\gamesdl-cpp\game123\threatsobject.h
 	"Common_Function.h"
 	"BaseObject.h"
 	"AmoObject.h"
 	<vector>
 
-1555173390 source:c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.cpp
+1555187178 source:c:\users\admin\documents\github\gamesdl-cpp\game123\mainobject.cpp
 	"MainObject.h"
 
-1555171017 source:c:\users\admin\documents\github\gamesdl-cpp\game123\threatsobject.cpp
+1555185870 source:c:\users\admin\documents\github\gamesdl-cpp\game123\threatsobject.cpp
 	"ThreatsObject.h"
 
 1325767740 f:\sdl\sdl_mixer_1_2_12\include\sdl_mixer.h
@@ -536,17 +536,17 @@
 1325738639 f:\sdl\sdl-1.2.15\include\sdl\sdl_types.h
 	"SDL_stdinc.h"
 
-1555171099 source:c:\users\admin\documents\github\gamesdl-cpp\game123\healthobject.cpp
+1555180132 source:c:\users\admin\documents\github\gamesdl-cpp\game123\healthobject.cpp
 	"HealthObject.h"
 
-1555163099 c:\users\admin\documents\github\gamesdl-cpp\game123\healthobject.h
+1555180304 c:\users\admin\documents\github\gamesdl-cpp\game123\healthobject.h
 	"BaseObject.h"
 	<vector>
 
 1555170283 source:c:\users\admin\documents\github\gamesdl-cpp\game123\textobject.cpp
 	"TextObject.h"
 
-1555168821 c:\users\admin\documents\github\gamesdl-cpp\game123\textobject.h
+1555180304 c:\users\admin\documents\github\gamesdl-cpp\game123\textobject.h
 	"BaseObject.h"
 	<string>
 	<SDL_ttf.h>

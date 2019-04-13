@@ -30,7 +30,7 @@ void HealthObject::Render(SDL_Surface* des)
 void HealthObject::Init()
 {
     loadImg("images/health.png");
-    number_ = 3;
+    number_ = NUM_LIVES;
     if (pos_list_.size() > 0)
     {
         pos_list_.clear();

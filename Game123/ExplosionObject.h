@@ -1,3 +1,5 @@
+// Đối tượng xuất hiện khi va chạm
+
 #ifndef EXPLOSION_OBJECT_H_
 #define EXPLOSION_OBJECT_H_
 
