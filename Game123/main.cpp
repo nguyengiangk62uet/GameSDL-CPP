@@ -10,6 +10,7 @@
 
 SDL_Surface *g_object;
 TTF_Font* g_font_text; //Font chữ
+TTF_Font* end_game_text;
 
 bool Init()
 {
@@ -41,6 +42,8 @@ bool Init()
         return false;
     }
     g_font_text = TTF_OpenFont("starcraft.ttf", 20);
+    end_game_text = TTF_OpenFont("starcraft.ttf", 40);
+
     if (!g_font_text)
     {
         return false;
@@ -48,8 +51,15 @@ bool Init()
     return true;
 }
 
+int game();
 
 int main(int argc, char* argv[])
+{
+    game();
+    return 0;
+}
+
+int game()
 {
     bool is_run_screen = true;
     int bground_y = 0;
@@ -75,7 +85,9 @@ int main(int argc, char* argv[])
 
     // Make game mark
     TextObject mark_game;
+    TextObject win_game;
     mark_game.SetColor(TextObject::WHITE_TEXT);
+    win_game.SetColor(TextObject::RED_TEXT);
 
 
     // Tạo đối tượng tên lửa
@@ -198,6 +210,10 @@ int main(int argc, char* argv[])
                         human_object.RemoveAmo(am);
                         if (num_fire_boss > 15)
                         {
+                            std::string text("Congratulation !!! You win.");
+                            win_game.SetText(text);
+                            win_game.SetRect(200, 300);
+                            win_game.CreateGameText(end_game_text, g_screen);
                             Mix_PlayChannel(-1, g_sound_explo[0], 0);
                             for (int ex = 0; ex < 4; ex++)
                             {
@@ -213,7 +229,11 @@ int main(int argc, char* argv[])
                                     return 0;
                             }
                             Sleep(2000);
-                            if (MessageBox(NULL, "Chuc mung !!! Ban da chien thang", "You win", MB_OK) == IDOK)
+                            if (MessageBox(NULL, "Do you want to continue?", "You win", MB_YESNOCANCEL) == IDYES)
+                            {
+                                game();
+                            }
+                            else
                             {
                                 delete[] p_threats; // Giải phóng bộ nhớ
                                 SDLCommonFunc::CleanUp();
@@ -224,7 +244,6 @@ int main(int argc, char* argv[])
                     }
                 }
             }
-
         }
 
         // Show health player
@@ -266,7 +285,7 @@ int main(int argc, char* argv[])
                         if ( SDL_Flip(g_screen) == -1)
                             return 0;
                     }
-                    SDL_Delay(2000);
+                    SDL_Delay(1000);
                     if (die_number <= NUM_LIVES - 1) // Chơi tiếp nếu còn mạng
                     {
                         human_object.SetRect(START_XPOS_MAIN, START_YPOS_MAIN);
@@ -282,12 +301,20 @@ int main(int argc, char* argv[])
                     }
                     else
                     {
-                        if (MessageBox(NULL, "Game Over !!! You are lose the game.", "End Game", MB_OK) == IDOK)
+                        Sleep(1000);
+                        if (MessageBox(NULL, "You die! Do you want to continue?", "You lose", MB_YESNOCANCEL) == IDYES)
                         {
                             delete[] p_threats; // Giải phóng bộ nhớ
                             SDLCommonFunc::CleanUp();
                             SDL_Quit();
-                            return 1;
+                            game();
+                        }
+                        else
+                        {
+                            delete[] p_threats; // Giải phóng bộ nhớ
+                            SDLCommonFunc::CleanUp();
+                            SDL_Quit();
+                            return 0;
                         }
                     }
                 }
@@ -317,7 +344,7 @@ int main(int argc, char* argv[])
                                 if ( SDL_Flip(g_screen) == -1)
                                     return 0;
                             }
-                            SDL_Delay(2000);
+                            SDL_Delay(1000);
                             if (die_number <= NUM_LIVES - 1)
                             {
                                 human_object.SetRect(START_XPOS_MAIN, START_YPOS_MAIN);
@@ -333,12 +360,20 @@ int main(int argc, char* argv[])
                             }
                             else
                             {
-                                if (MessageBox(NULL, "Game Over !!! You are lose the game.", "End Game", MB_OK) == IDOK)
+                                Sleep(1000);
+                                if (MessageBox(NULL, "You die! Do you want to continue?", "You lose", MB_YESNOCANCEL) == IDYES)
                                 {
                                     delete[] p_threats; // Giải phóng bộ nhớ
                                     SDLCommonFunc::CleanUp();
                                     SDL_Quit();
-                                    return 1;
+                                    game();
+                                }
+                                else
+                                {
+                                    delete[] p_threats; // Giải phóng bộ nhớ
+                                    SDLCommonFunc::CleanUp();
+                                    SDL_Quit();
+                                    return 0;
                                 }
                             }
                         }
