@@ -229,7 +229,7 @@ int game()
                                     return 0;
                             }
                             Sleep(2000);
-                            if (MessageBox(NULL, "Do you want to continue?", "You win", MB_YESNOCANCEL) == IDYES)
+                            if (MessageBox(NULL, "Do you want to continue?", "You win", MB_YESNO) == IDYES)
                             {
                                 game();
                             }
@@ -302,7 +302,7 @@ int game()
                     else
                     {
                         Sleep(1000);
-                        if (MessageBox(NULL, "You die! Do you want to continue?", "You lose", MB_YESNOCANCEL) == IDYES)
+                        if (MessageBox(NULL, "You die! Do you want to continue?", "You lose", MB_YESNO) == IDYES)
                         {
                             delete[] p_threats; // Giải phóng bộ nhớ
                             SDLCommonFunc::CleanUp();
@@ -361,7 +361,7 @@ int game()
                             else
                             {
                                 Sleep(1000);
-                                if (MessageBox(NULL, "You die! Do you want to continue?", "You lose", MB_YESNOCANCEL) == IDYES)
+                                if (MessageBox(NULL, "You die! Do you want to continue?", "You lose", MB_YESNO) == IDYES)
                                 {
                                     delete[] p_threats; // Giải phóng bộ nhớ
                                     SDLCommonFunc::CleanUp();
